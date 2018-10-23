@@ -7,11 +7,11 @@ module.exports.get_adb_device_list = () => {
         spawn('adb', ['devices']).stdout.on('data', function(data) {
             var devices = []
             var arrayOfStrings = data.toString().split('\n')
-            for (var x = 1; x< arrayOfStrings.length; x++) {
+            for (var x = 1; x < arrayOfStrings.length; x++) {
                 var currentID = arrayOfStrings[x].split('\t')[0]
                 if(currentID.length !== 0) devices.push(currentID)
             }
-            if(devices.length !== 0) resolve(devices)
+            if(devices.length != 0) resolve(devices)
             else {
                 console.error("\nNO ADB DEVICES ATTACHED\n\nPLEASE PLUG IN\n")
                 process.exit()

@@ -1,8 +1,8 @@
 const { spawn, exec } = require('child_process')
 var fs = require('fs')
 
-module.exports.getScreenshot = (device) => {
-    const image = Date.now() + '_' + device + '.png'
+module.exports.getScreenshot = (timestamp,device) => {
+    const image = timestamp + '_' + device + '.png'
     return new Promise((resolve,reject) => {
         exec('adb -s ' + device + ' shell screencap -p /sdcard/' + image, (err,stdout,stdin) => {
             if(err) process.exit()
@@ -27,7 +27,7 @@ module.exports.deleteImgOnDevice = (image,device) => {
     })
 }
 module.exports.openImage = (image) => {
-    const imageFile = 'imgs/' + image
+    const imageFile = process.argv[2] + '/' + image
     var flag = true
     while(flag) {
         if(fs.existsSync(imageFile)) {
